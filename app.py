@@ -201,5 +201,4 @@ with baru1:
     st.altair_chart(chart, use_container_width=True)
 
 with baru2:
-    st.markdown("""Berdasarkan grafik dapat dilihat bahwa grafik income meningkat seiring denga bertambahnya umur. walaupun ada 
-                kondisi dimana eberapa peningkatan umur malah menueurnnya income""")
+    st.markdown("""😁 onn progres guyss hihi""")

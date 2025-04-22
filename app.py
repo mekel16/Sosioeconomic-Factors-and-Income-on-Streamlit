@@ -6,6 +6,9 @@ import altair as alt
 import streamlit as st
 import pandas as pd
 
+import plotly.express as px
+
+
 # Load data
 data = pd.read_csv('sgdata.csv')
 df = pd.DataFrame(data)
@@ -33,7 +36,9 @@ st.title('Socioeconomic Factors and Income Analysis')
 
 st.markdown("""
 <div style="font-size: 16px; line-height: 1.6;">
-lorem ipsum doolor sir amet kau cantik amett
+📌 Pada bagian ini merupakan ringkasan temuan utama dari hasil analisis yang dilakukan.  
+Isi paragraf ini memberikan gambaran singkat tentang pola-pola yang ditemukan dalam data,  
+dan dapat dijadikan referensi awal sebelum masuk ke dashboard analitik yang lebih lengkap.
 </div>
 """, unsafe_allow_html=True)
 
@@ -93,7 +98,9 @@ with col2:
     - 🚫 **Tidak ada nilai ekstrim** yang terlalu memengaruhi rata-rata.
     """, unsafe_allow_html=True)
 
-import plotly.express as px
+
+
+
 
 # Hitung jumlah responden per tingkat pendidikan
 education_count = df['Education'].value_counts().reset_index()
@@ -119,25 +126,6 @@ fig_pie.update_layout(
         x=0.5                    
     )
 )
-
-# Tampilkan di Streamlit
-
-
-kolom1, kolom2 = st.columns([1.5, 1])  
-with kolom1:
-    st.markdown("""
-        <div style="margin-top: 2rem; font-size: 16px; line-height: 1.6;">
-        Jadi, secara umum, <b>disparitas pendapatan antar jenjang pendidikan relatif rendah</b> dalam dataset ini.  
-        Tapi perlu diperhatikan bahwa dataset <b>tidak memiliki keseimbangan jumlah responden</b> antar tingkat pendidikan.  
-        Hal ini dapat dilihat pada gambar pie chart di samping.
-        </div>
-        <br></br>
-        lalu, sebenarnya faktor apa yang menjadi pembeda pada tingkat pendapatan mungkin kah umur? atau malah hal lainnya
-        mari kita cari tahu.
-    """, unsafe_allow_html=True)
-
-with kolom2:
-    st.plotly_chart(fig_pie, use_container_width=True)
 
 
 mean_by_age = df.groupby('Age')['Income'].mean().reset_index()
@@ -191,13 +179,28 @@ chart = (line + highlight + labels).properties(
 
 )
 
-baru1, baru2 = st.columns([1,1])
+kolom1, kolom2 = st.columns([1.7, 1])  
+
+with kolom1:
+    st.markdown("""
+        <div style="margin-top: 2rem; font-size: 16px; line-height: 1.6;">
+        Jadi, secara umum, <b>disparitas pendapatan antar jenjang pendidikan relatif rendah</b> dalam dataset ini.  
+        Tapi perlu diperhatikan bahwa dataset <b>tidak memiliki keseimbangan jumlah responden</b> antar tingkat pendidikan.  
+        Hal ini dapat dilihat pada gambar pie chart di samping.
+        </div>
+    """,unsafe_allow_html=True)
+
+with kolom2:
+    st.plotly_chart(fig_pie, use_container_width=True)
+
+st.divider()
+
+
+baru1, baru2 = st.columns([1.5,1])
 
 with baru1:
     st.altair_chart(chart, use_container_width=True)
 
 with baru2:
-    st.markdown("""hihi😁, masih on progress""")
-
-
-
+    st.markdown("""Berdasarkan grafik dapat dilihat bahwa grafik income meningkat seiring denga bertambahnya umur. walaupun ada 
+                kondisi dimana eberapa peningkatan umur malah menueurnnya income""")

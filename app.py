@@ -154,7 +154,7 @@ labels = alt.Chart(top_points).mark_text(
     dy=-10,
     fontSize=12,
     fontWeight='bold',
-    color='white'
+    color='green'
 ).encode(
     x='Age',
     y='Income',
@@ -174,7 +174,7 @@ chart = (line + highlight + labels).properties(
 ).configure_title(
     fontSize=20,
     anchor='start',
-    color='green',
+    color='white',
     fontWeight='bold'
 
 )

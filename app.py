@@ -174,7 +174,7 @@ chart = (line + highlight + labels).properties(
 ).configure_title(
     fontSize=20,
     anchor='start',
-    color='white',
+    color='green',
     fontWeight='bold'
 
 )

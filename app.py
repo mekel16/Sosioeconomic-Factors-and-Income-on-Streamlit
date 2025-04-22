@@ -90,7 +90,8 @@ with col1:
 
 with col2:
     st.markdown("""
-                **Pendapatan berdasarkan tingkat pendidikan tidak menunjukkan perbedaan yang signifikan.**  
+                **Rata-rata Pendapatan orang dengan tingkat Pendidikan Universitas dan Graduate Lebih tinggi sekitar 35.000. dari pada yang
+                Hanya lulus SMA**  
                 Rata-rata (*mean*) dan nilai tengah (*median*) di tiap jenjang pendidikan terlihat cukup **berdekatan**,  
                 yang mengindikasikan bahwa:
 
@@ -98,11 +99,7 @@ with col2:
     - 🚫 **Tidak ada nilai ekstrim** yang terlalu memengaruhi rata-rata.
     """, unsafe_allow_html=True)
 
-
-
-
-
-# Hitung jumlah responden per tingkat pendidikan
+# jumlah responden per tingkat pendidikan
 education_count = df['Education'].value_counts().reset_index()
 education_count.columns = ['Education', 'Count']
 
@@ -185,7 +182,7 @@ with kolom1:
         <div style="margin-top: 2rem; font-size: 16px; line-height: 1.6;">
         Jadi, secara umum, <b>disparitas pendapatan antar jenjang pendidikan relatif rendah</b> dalam dataset ini.  
         Tapi perlu diperhatikan bahwa dataset <b>tidak memiliki keseimbangan jumlah responden</b> antar tingkat pendidikan.  
-        Hal ini dapat dilihat pada gambar pie chart di samping.
+        Hal ini dapat dilihat pada gambar pie chart. <br></br> Meski demikian, besar kemungkinan bahwa 
         </div>
     """,unsafe_allow_html=True)
 

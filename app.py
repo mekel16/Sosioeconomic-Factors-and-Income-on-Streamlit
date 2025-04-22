@@ -199,7 +199,7 @@ with baru1:
     st.altair_chart(chart, use_container_width=True)
 
 with baru2:
-    st.markdown("""sdsdfs""")
+    st.markdown("""hihi😁, masih on progress""")
 
 
 

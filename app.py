@@ -178,7 +178,7 @@ chart = (line + highlight + labels).properties(
 
 )
 
-kolom1, kolom2 = st.columns([1.8, 1])  
+kolom1, kolom2 = st.columns([2, 1])  
 
 with kolom1:
     st.markdown("""

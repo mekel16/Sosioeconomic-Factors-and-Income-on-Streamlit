@@ -180,9 +180,12 @@ kolom1, kolom2 = st.columns([2, 1])
 with kolom1:
     st.markdown("""
         <div style="margin-top: 2rem; font-size: 16px; line-height: 1.6;">
-        Jadi, secara umum, <b>disparitas pendapatan antar jenjang pendidikan relatif rendah</b> dalam dataset ini.  
-        Tapi perlu diperhatikan bahwa dataset <b>tidak memiliki keseimbangan jumlah responden</b> antar tingkat pendidikan.  
-        Hal ini dapat dilihat pada gambar pie chart. <br></br> Meski demikian, besar kemungkinan bahwa 
+        Jadi, dapat dikatakan bahwa, <b>semakin tinggi tingkat pendidikan maka semakin tinggi pula rata-rata pendapatannya
+        </b>.
+        <br></br>
+        distribusi tingkat pendidikan universitas itu hanya 14% bahkan graduate school hanya 1.8% tetapi, penghitungan rata-rata
+        pendapatannya lebih tinggi dari yang lain. Ada kemungkinan bahwa apabila distribusinya seimbang maka rata rata pendapatannya pun
+        bisa jadi jauh berbeda. 
         </div>
     """,unsafe_allow_html=True)
 

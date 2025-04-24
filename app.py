@@ -84,22 +84,29 @@ st.divider()
 # Spacer biar bagian bawah agak turun
 st.markdown("<div style='margin-top: 3rem;'></div>", unsafe_allow_html=True)
 
-col1, col2 = st.columns([2, 1])
+col1, col2 = st.columns([1.5, 1])
 with col1:
     st.plotly_chart(fig, use_container_width=True)
 
 with col2:
     st.markdown("""
-                **Rata-rata Pendapatan orang dengan tingkat Pendidikan Universitas dan Graduate Lebih tinggi sekitar 35.000. dari pada yang
-                Hanya lulus SMA**  
-                Rata-rata (*mean*) dan nilai tengah (*median*) di tiap jenjang pendidikan terlihat cukup **berdekatan**,  
-                yang mengindikasikan bahwa:
+                Pendidikan yang lebih tinggi berhubungan dengan pendapatan yang lebih tinggi. Orang yang memiliki pendidikan universitas (S1) dan graduate school cenderung memiliki 
+                pendapatan yang jauh lebih tinggi, sekitar 35.000, dibandingkan dengan mereka yang hanya memiliki pendidikan SMA.
+                <br></br>
+                Menarik juga bahwa sebaran pendapatan dalam tiap kategori pendidikan tidak terlalu lebar. Hal itu dibuktikan dengan apa?
+                ya, mean dan mediannya tidak jauh berbeda di tiap kategori. hal ini menunjukkan bahwa
+                tidak ada nilai ekstrim tertentu yang berpengaruh signifikan
+                terhadap rata rata yang kita hitung.
+                <br></br>
+                Jadi, dapat dikatakan bahwa, <b>semakin tinggi tingkat pendidikan maka semakin tinggi pula rata-rata pendapatannya. Dan, pendapatan di tiap jenjang juga tidaklah jauh berbeda</b>.-
 
-    - 🔍 **Sebaran pendapatan tidak terlalu lebar** dalam tiap kategori pendidikan.
-    - 🚫 **Tidak ada nilai ekstrim** yang terlalu memengaruhi rata-rata.
     """, unsafe_allow_html=True)
 
-# jumlah responden per tingkat pendidikan
+
+
+
+
+# Hitung jumlah responden per tingkat pendidikan
 education_count = df['Education'].value_counts().reset_index()
 education_count.columns = ['Education', 'Count']
 
@@ -151,7 +158,7 @@ labels = alt.Chart(top_points).mark_text(
     dy=-10,
     fontSize=12,
     fontWeight='bold',
-    color='green'
+    color='white'
 ).encode(
     x='Age',
     y='Income',
@@ -171,34 +178,56 @@ chart = (line + highlight + labels).properties(
 ).configure_title(
     fontSize=20,
     anchor='start',
+    color='white',
     fontWeight='bold'
 
 )
 
-kolom1, kolom2 = st.columns([2, 1])  
+chart2 = alt.Chart(data).mark_circle(size=60).encode(
+    x=alt.X('Age:Q', title='Age', axis=alt.Axis(grid=False), scale=alt.Scale(zero=False)),
+    y=alt.Y('Income:Q', title='Income', axis=alt.Axis(grid=False), scale=alt.Scale(zero=False)),
+    color=alt.Color(
+        'Occupation:N',
+        legend=alt.Legend(
+            orient='bottom',
+            direction='vertical',
+            labelLimit=500,  # Mengatur panjang label agar tidak terpotong
+            title=None       # Menghilangkan judul legenda jika tidak perlu
+        )
+    ),
+    tooltip=['Age', 'Income', 'Occupation']
+).interactive().properties(
+    title='Distribusi Income Berdasarkan Umur dan Pekerjaan',
+    width=500,   # Lebar chart disesuaikan agar tidak terpotong
+    height=400    # Tinggi chart yang sesuai
+).configure_view(
+    continuousHeight=400,
+    continuousWidth=500
+)
+
+
+kolom1, kolom2 = st.columns([1.7, 1])  
 
 with kolom1:
     st.markdown("""
         <div style="margin-top: 2rem; font-size: 16px; line-height: 1.6;">
-        Jadi, dapat dikatakan bahwa, <b>semakin tinggi tingkat pendidikan maka semakin tinggi pula rata-rata pendapatannya
-        </b>.
-        <br></br>
-        distribusi tingkat pendidikan universitas itu hanya 14% bahkan graduate school hanya 1.8% tetapi, penghitungan rata-rata
-        pendapatannya lebih tinggi dari yang lain. Ada kemungkinan bahwa apabila distribusinya seimbang maka rata rata pendapatannya pun
-        bisa jadi jauh berbeda. 
+        Selain itu, perhatikan bahwa. Distribusi tingkat pendidikan dalam data ini belum merata—hanya sekitar 14% yang 
+        memiliki pendidikan universitas, dan bahkan hanya 1,8% yang menempuh graduate school. Meski begitu, kelompok kecil ini justru 
+        menunjukkan rata-rata pendapatan yang lebih tinggi dibandingkan jenjang lainnya. Apabila distribusi tingkat pendidikan lebih seimbang, maka gambaran rata-rata pendapatan secara 
+        keseluruhan pun bisa berubah secara signifikan. Artinya, semakin banyak orang yang mengenyam pendidikan tinggi, 
+        bisa jadi rata-rata pendapatan secara umum juga akan meningkat.
         </div>
     """,unsafe_allow_html=True)
+    st.divider()
+    st.altair_chart(chart2, use_container_width=True)
 
 with kolom2:
     st.plotly_chart(fig_pie, use_container_width=True)
+    st.divider()
+    st.altair_chart(chart, use_container_width=True)
+
 
 st.divider()
 
 
-baru1, baru2 = st.columns([1.5,1])
 
-with baru1:
-    st.altair_chart(chart, use_container_width=True)
-
-with baru2:
-    st.markdown("""😁 onn progres guyss hihi""")

@@ -36,9 +36,7 @@ st.title('Socioeconomic Factors and Income Analysis')
 
 st.markdown("""
 <div style="font-size: 16px; line-height: 1.6;">
-📌 Pada bagian ini merupakan ringkasan temuan utama dari hasil analisis yang dilakukan.  
-Isi paragraf ini memberikan gambaran singkat tentang pola-pola yang ditemukan dalam data,  
-dan dapat dijadikan referensi awal sebelum masuk ke dashboard analitik yang lebih lengkap.
+
 </div>
 """, unsafe_allow_html=True)
 

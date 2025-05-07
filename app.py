@@ -30,20 +30,18 @@ with kolom_profil:
 with kolom_about:
     st.markdown("""
     ### 🙋‍♂️ Hello There!
-    My name is **[Your Name Here]**, and I'm passionate about **data, design, and digital innovation**.
+    My name is **Michael Luwi Pallea**, and I'm passionate about **data, design, ML, AI, DeepLearning and Website Development**.
 
     - 📊 Data Enthusiast  
     - 🧠 Lifelong Learner  
     - 💬 Always curious and open to collaboration  
 
-    > *"Code is poetry, and data tells the story."*
+    > *In God we Trust, all others must bring Data"* 🌟
 
-    Let's connect and create something amazing together! 🌟
+    lest see my portofolio here
     """)
     
 st.markdown("---")
-st.markdown("<p style='text-align: center; color: gray;'>© 2025 My Awesome Streamlit App</p>", unsafe_allow_html=True)
-    
 
 st.markdown("""
     <style>

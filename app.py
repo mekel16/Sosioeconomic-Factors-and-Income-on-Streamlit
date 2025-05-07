@@ -19,14 +19,30 @@ st.set_page_config(page_title='Socioeconomic Factors and Income Analysis')
 
 
 
-kolom_profil, kolom_about  = st.columns([1.5,2])
+kolom_profil, kolom_about = st.columns([1, 2])
 
+# Kolom kiri: Foto Profil
 with kolom_profil:
-    img_profil  = Image.open('Business_Casual_Alt_3_3_1738636868680.png')
-    st.image(img_profil, caption='Hi, guys', use_column_width = True)
+    img_profil = Image.open('Business_Casual_Alt_3_3_1738636868680.png')
+    st.image(img_profil, caption='👨‍💼 Hi, guys!', use_column_width=True)
 
+# Kolom kanan: Tentang Saya
 with kolom_about:
-    st.write('hy Guuss')
+    st.markdown("""
+    ### 🙋‍♂️ Hello There!
+    My name is **[Your Name Here]**, and I'm passionate about **data, design, and digital innovation**.
+
+    - 📊 Data Enthusiast  
+    - 🧠 Lifelong Learner  
+    - 💬 Always curious and open to collaboration  
+
+    > *"Code is poetry, and data tells the story."*
+
+    Let's connect and create something amazing together! 🌟
+    """)
+    
+st.markdown("---")
+st.markdown("<p style='text-align: center; color: gray;'>© 2025 My Awesome Streamlit App</p>", unsafe_allow_html=True)
     
 
 st.markdown("""

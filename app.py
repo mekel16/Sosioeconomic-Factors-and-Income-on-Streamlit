@@ -18,7 +18,7 @@ df = pd.DataFrame(data)
 st.set_page_config(page_title='Socioeconomic Factors and Income Analysis')
 
 img_profil  = Image.open('Business_Casual_Alt_3_3_1738636868680.png')
-st.image(img_profil, caption='Hi, guys', width = 20px)
+st.image(img_profil, caption='Hi, guys', use_column_width = True)
 
 st.markdown("""
     <style>

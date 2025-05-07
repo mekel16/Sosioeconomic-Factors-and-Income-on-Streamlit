@@ -23,7 +23,7 @@ kolom_profil, kolom_about  = st.columns([1.5,2])
 
 with kolom_profil:
     img_profil  = Image.open('Business_Casual_Alt_3_3_1738636868680.png')
-    st.image(img_profil, caption='Hi, guys', use_column_width = True)
+    st.image(img_profil, caption='Hi, guys', use_column_width = True, use_container_width = True)
 
 with kolom_about:
     st.write('hy Guuss')

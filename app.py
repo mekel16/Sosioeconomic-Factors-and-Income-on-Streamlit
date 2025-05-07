@@ -38,7 +38,7 @@ with kolom_about:
 
     > *In God we Trust, all others must bring Data"* 🌟
 
-    lest see my portofolio here
+    lest see my portofolio here : *https://michpalleaportfolio.carrd.co/*
     """)
     
 st.markdown("---")

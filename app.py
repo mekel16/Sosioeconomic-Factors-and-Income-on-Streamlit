@@ -5,9 +5,11 @@ import plotly.graph_objects as go
 import altair as alt
 import streamlit as st
 import pandas as pd
-
+from PIL import Image
 import plotly.express as px
 
+img_profil  = Image.open('Business_Casual_Alt_3_3_1738636868680.png')
+st.image(img_profil, caption='Hi, guys', use_column_width=True)
 
 # Load data
 data = pd.read_csv('sgdata.csv')

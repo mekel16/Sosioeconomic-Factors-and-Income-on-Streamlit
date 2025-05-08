@@ -8,7 +8,7 @@ import pandas as pd
 from PIL import Image
 import plotly.express as px
 
-data = pd.read_csv('sgdata.csv')
+data = pd.read_csv('D:\Download\sgdata.csv')
 df = pd.DataFrame(data)
 
 st.set_page_config(page_title='Socioeconomic Factors and Income Analysis')
@@ -16,7 +16,7 @@ st.set_page_config(page_title='Socioeconomic Factors and Income Analysis')
 kolom_profil, kolom_about = st.columns([1, 2])
 
 with kolom_profil:
-    img_profil = Image.open("Business_Casual_Alt_3_3_1738636868680.png")
+    img_profil = Image.open("D:\Download\Business_Casual_Alt_3_3_1738636868680.png")
     st.image(img_profil, use_container_width=True)
 
 with kolom_about:
@@ -143,15 +143,15 @@ fig_pie.update_layout(
 
 df_grouped = df.groupby(['Age', 'Sex'])['Income'].mean().reset_index()
 chart_detail = alt.Chart(df_grouped).mark_line().encode(
-    x='Age:Q',
-    y='Income:Q',
+    x=alt.X('Age:Q', title='Age', axis=alt.Axis(grid=False), scale=alt.Scale(zero=False)),    
+    y=alt.Y('Income:Q', title='Income', axis=alt.Axis(grid=False), scale=alt.Scale(zero=False)),
     color='Sex:N',
     tooltip=['Age', 'Income', 'Sex']
 
 ).properties(
     title='Income by Age and Sex',
     width=700,
-    height=400 
+    height=400   
 ).interactive()
 
 chart2 = alt.Chart(data).mark_circle(size=60).encode(
@@ -167,14 +167,11 @@ chart2 = alt.Chart(data).mark_circle(size=60).encode(
         )
     ),
     tooltip=['Age', 'Income', 'Occupation']
-).interactive().properties(
-    title='Income By Age and Occupation',
-    width=500,  
-    height=400
-).configure_view(
-    continuousHeight=400,
-    continuousWidth=500
-)
+).properties(
+    title='Income by Age and Occupation',
+    width=700,
+    height=400 
+).interactive()
 
 kolom1, kolom2 = st.columns([1.7, 1])  
 
@@ -195,14 +192,14 @@ with kolom1:
 with kolom2:
     st.plotly_chart(fig_pie, use_container_width=True)
 
-col_avg_by_age, col_text_by_age = st.columns([2,1])
+col_avg_by_age, col_text_by_age = st.columns([2,0.8])
 
 with col_avg_by_age:
     st.altair_chart(chart_detail, use_container_width=True)
 
 with col_text_by_age:
     st.markdown("""Analyzing demographics by age and gender reveals that older age does not equate to higher income for either gender. 
-                    Let's explore additional demographic factors as follows.""")
+            Let's explore additional demographic factors as follows.""")
 
 st.altair_chart(chart2, use_container_width=True)
 

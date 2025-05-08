@@ -8,40 +8,32 @@ import pandas as pd
 from PIL import Image
 import plotly.express as px
 
-
-
-# Load data
-data = pd.read_csv('sgdata.csv')
+data = pd.read_csv('D:\Download\sgdata.csv')
 df = pd.DataFrame(data)
 
-# Config page
 st.set_page_config(page_title='Socioeconomic Factors and Income Analysis')
-
-
 
 kolom_profil, kolom_about = st.columns([1, 2])
 
-# Kolom kiri: Foto Profil
 with kolom_profil:
-    img_profil = Image.open('Business_Casual_Alt_3_3_1738636868680.png')
+    img_profil = Image.open("Business_Casual_Alt_3_3_1738636868680.png")
     st.image(img_profil, use_container_width=True)
 
-# Kolom kanan: Tentang Saya
 with kolom_about:
     st.markdown("""
     ### 🙋‍♂️ Hello There!
-    My name is **Michael Luwi Pallea**, and I'm passionate about **data, design, ML, AI, DeepLearning and Website Development**.
+    My name is **Michael Pallea'**, and I'm passionate about **data, Machine Learning, DeepLearning and Web Design**.
 
     - 📊 Data Enthusiast  
-    - 🧠 Lifelong Learner  
-    - 💬 Always curious and open to collaboration  
 
-    > *In God we Trust, all others must bring Data"* 🌟
+    > *"only God we Trust, all other must bring data"*
 
-    lest see my portofolio here : *https://michpalleaportfolio.carrd.co/*
+    Let's connect and create something amazing together! 🌟
+    see my portofolio here :
+    *https://michpalleaportfolio.carrd.co/*
     """)
     
-st.markdown("---")
+st.markdown("---")    
 
 st.markdown("""
     <style>
@@ -59,6 +51,7 @@ st.markdown("""
 
 # Title
 st.title('Socioeconomic Factors and Income Analysis')
+st.write('the dataset i got from here: *https://www.kaggle.com/datasets/aldol07/socioeconomic-factors-and-income-dataset/data*')
 
 
 st.markdown("""
@@ -67,7 +60,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Statistik income
 mean_by_education = df.groupby('Education')['Income'].mean()
 median_by_education = df.groupby('Education')['Income'].median()
 
@@ -106,7 +98,6 @@ fig.update_layout(
 
 st.divider()
 
-# Spacer biar bagian bawah agak turun
 st.markdown("<div style='margin-top: 3rem;'></div>", unsafe_allow_html=True)
 
 col1, col2 = st.columns([1.5, 1])
@@ -115,27 +106,22 @@ with col1:
 
 with col2:
     st.markdown("""
-                Pendidikan yang lebih tinggi berhubungan dengan pendapatan yang lebih tinggi. Orang yang memiliki pendidikan universitas (S1) dan graduate school cenderung memiliki 
-                pendapatan yang jauh lebih tinggi, sekitar 35.000, dibandingkan dengan mereka yang hanya memiliki pendidikan SMA.
+                **Higher education is linked to higher income levels**. 
+                Individuals with a university education (Bachelor's degree) and those with graduate degrees tend to earn significantly more, 
+                with average incomes around **$35.000**, compared to those with only a high school diploma.
                 <br></br>
-                Menarik juga bahwa sebaran pendapatan dalam tiap kategori pendidikan tidak terlalu lebar. Hal itu dibuktikan dengan apa?
-                ya, mean dan mediannya tidak jauh berbeda di tiap kategori. hal ini menunjukkan bahwa
-                tidak ada nilai ekstrim tertentu yang berpengaruh signifikan
-                terhadap rata rata yang kita hitung.
+                Note that, the income distribution within each education category is **relatively narrow**. 
+                The *mean* and *median* incomes in each category are quite similar, indicating that there are *no extreme values significantly affecting the average* income we calculated.
                 <br></br>
-                Jadi, dapat dikatakan bahwa, <b>semakin tinggi tingkat pendidikan maka semakin tinggi pula rata-rata pendapatannya. Dan, pendapatan di tiap jenjang juga tidaklah jauh berbeda</b>.-
+                Higher education levels typically lead to higher average incomes, 
+                and income variations within each education level are minimal.
 
     """, unsafe_allow_html=True)
 
 
-
-
-
-# Hitung jumlah responden per tingkat pendidikan
 education_count = df['Education'].value_counts().reset_index()
 education_count.columns = ['Education', 'Count']
 
-# Pie chart
 fig_pie = px.pie(
     education_count,
     names='Education',
@@ -145,7 +131,6 @@ fig_pie = px.pie(
     hole=0.5
 )
 
-# Atur posisi legend
 fig_pie.update_layout(
     legend=dict(
         orientation="h",         
@@ -156,57 +141,18 @@ fig_pie.update_layout(
     )
 )
 
+df_grouped = df.groupby(['Age', 'Sex'])['Income'].mean().reset_index()
+chart_detail = alt.Chart(df_grouped).mark_line().encode(
+    x='Age:Q',
+    y='Income:Q',
+    color='Sex:N',
+    tooltip=['Age', 'Income', 'Sex']
 
-mean_by_age = df.groupby('Age')['Income'].mean().reset_index()
-
-top_points = mean_by_age.nlargest(3, 'Income')
-
-line = alt.Chart(mean_by_age).mark_line(point=True).encode(
-    x=alt.X('Age', title='Usia'),
-    y=alt.Y('Income', title='Pendapatan', scale=alt.Scale(zero=False)),
-    tooltip=['Age', 'Income']
-)
-
-highlight = alt.Chart(top_points).mark_point(
-    size=100,
-    filled=True,
-    color='crimson'
-).encode(
-    x='Age',
-    y='Income',
-    tooltip=['Age', 'Income']
-)
-
-labels = alt.Chart(top_points).mark_text(
-    align='left',
-    dx=5,
-    dy=-10,
-    fontSize=12,
-    fontWeight='bold',
-    color='white'
-).encode(
-    x='Age',
-    y='Income',
-    text=alt.Text('Income', format=',.0f')
-)
-
-chart = (line + highlight + labels).properties(
-    title='Rata-rata Pendapatan Berdasarkan Usia',
+).properties(
+    title='Income by Age and Sex',
     width=700,
-    height=400
-).configure_view(
-    stroke=None  
-).configure_axis(
-    grid=False,  
-    labelFontSize=12,
-    titleFontSize=14
-).configure_title(
-    fontSize=20,
-    anchor='start',
-    color='white',
-    fontWeight='bold'
-
-)
+    height=400 
+).interactive()
 
 chart2 = alt.Chart(data).mark_circle(size=60).encode(
     x=alt.X('Age:Q', title='Age', axis=alt.Axis(grid=False), scale=alt.Scale(zero=False)),
@@ -216,43 +162,50 @@ chart2 = alt.Chart(data).mark_circle(size=60).encode(
         legend=alt.Legend(
             orient='bottom',
             direction='vertical',
-            labelLimit=500,  # Mengatur panjang label agar tidak terpotong
-            title=None       # Menghilangkan judul legenda jika tidak perlu
+            labelLimit=500,  
+            title=None     
         )
     ),
     tooltip=['Age', 'Income', 'Occupation']
 ).interactive().properties(
-    title='Distribusi Income Berdasarkan Umur dan Pekerjaan',
-    width=500,   # Lebar chart disesuaikan agar tidak terpotong
-    height=400    # Tinggi chart yang sesuai
+    title='Income By Age and Occupation',
+    width=500,  
+    height=400
 ).configure_view(
     continuousHeight=400,
     continuousWidth=500
 )
-
 
 kolom1, kolom2 = st.columns([1.7, 1])  
 
 with kolom1:
     st.markdown("""
         <div style="margin-top: 2rem; font-size: 16px; line-height: 1.6;">
-        Selain itu, perhatikan bahwa. Distribusi tingkat pendidikan dalam data ini belum merata—hanya sekitar 14% yang 
-        memiliki pendidikan universitas, dan bahkan hanya 1,8% yang menempuh graduate school. Meski begitu, kelompok kecil ini justru 
-        menunjukkan rata-rata pendapatan yang lebih tinggi dibandingkan jenjang lainnya. Apabila distribusi tingkat pendidikan lebih seimbang, maka gambaran rata-rata pendapatan secara 
-        keseluruhan pun bisa berubah secara signifikan. Artinya, semakin banyak orang yang mengenyam pendidikan tinggi, 
-        bisa jadi rata-rata pendapatan secara umum juga akan meningkat.
+        It's important to note that, the distribution of education levels in this data is uneven. 
+        Only about 14% of individuals hold a university degree, and among them, just 1.8% have pursued graduate studies. 
+        However, this smallgroup exhibits a higher average income compared to those with lower education levels. If the distribution of education levels were more balanced, 
+        the overall average income could change significantly. 
+        This suggests that as more people attain higher education, the average income across the population may also rise.
+        <br></br>
+        <br></br>
+
         </div>
     """,unsafe_allow_html=True)
-    st.divider()
-    st.altair_chart(chart2, use_container_width=True)
 
 with kolom2:
     st.plotly_chart(fig_pie, use_container_width=True)
-    st.divider()
-    st.altair_chart(chart, use_container_width=True)
 
+col_avg_by_age, col_text_by_age = st.columns([2,1])
+
+with col_avg_by_age:
+    st.altair_chart(chart_detail, use_container_width=True)
+
+with col_text_by_age:
+    st.markdown("""Analyzing demographics by age and gender reveals that older age does not equate to higher income for either gender. 
+                    Let's explore additional demographic factors as follows.""")
+
+st.altair_chart(chart2, use_container_width=True)
 
 st.divider()
-
 
 

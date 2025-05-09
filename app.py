@@ -8,7 +8,7 @@ import pandas as pd
 from PIL import Image
 import plotly.express as px
 
-data = pd.read_csv('D:\Download\sgdata.csv')
+data = pd.read_csv('sgdata.csv')
 df = pd.DataFrame(data)
 
 st.set_page_config(page_title='Socioeconomic Factors and Income Analysis')
@@ -16,7 +16,7 @@ st.set_page_config(page_title='Socioeconomic Factors and Income Analysis')
 kolom_profil, kolom_about = st.columns([1, 2])
 
 with kolom_profil:
-    img_profil = Image.open("D:\Download\Business_Casual_Alt_3_3_1738636868680.png")
+    img_profil = Image.open("Business_Casual_Alt_3_3_1738636868680.png")
     st.image(img_profil, use_container_width=True)
 
 with kolom_about:

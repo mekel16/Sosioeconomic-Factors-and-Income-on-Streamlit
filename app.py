@@ -11,8 +11,11 @@ import plotly.express as px
 data = pd.read_csv('sgdata.csv')
 df = pd.DataFrame(data)
 
-st.set_page_config(page_title='Socioeconomic Factors and Income Analysis')
-
+st.set_page_config(
+    page_title='Socioeconomic Factors and Income Analysis',
+    layout='wide',
+    initial_sidebar_state="collapsed"
+)
 with st.sidebar:
     img_profil = Image.open("Business_Casual_Alt_3_3_1738636868680.png")
     st.image(img_profil, use_container_width=True)

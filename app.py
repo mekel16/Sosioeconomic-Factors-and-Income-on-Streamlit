@@ -13,13 +13,9 @@ df = pd.DataFrame(data)
 
 st.set_page_config(page_title='Socioeconomic Factors and Income Analysis')
 
-kolom_profil, kolom_about = st.columns([1, 2])
-
-with kolom_profil:
+with st.sidebar:
     img_profil = Image.open("Business_Casual_Alt_3_3_1738636868680.png")
     st.image(img_profil, use_container_width=True)
-
-with kolom_about:
     st.markdown("""
     ### 🙋‍♂️ Hello There!
     My name is **Michael Pallea'**, and I'm passionate about **data, Machine Learning, DeepLearning and Web Design**.
@@ -154,7 +150,7 @@ chart_detail = alt.Chart(df_grouped).mark_line().encode(
     height=400   
 ).interactive()
 
-chart2 = alt.Chart(data).mark_circle(size=60).encode(
+chart2 = alt.Chart(data).mark_circle(size=70).encode(
     x=alt.X('Age:Q', title='Age', axis=alt.Axis(grid=False), scale=alt.Scale(zero=False)),
     y=alt.Y('Income:Q', title='Income', axis=alt.Axis(grid=False), scale=alt.Scale(zero=False)),
     color=alt.Color(
@@ -198,11 +194,22 @@ with col_avg_by_age:
     st.altair_chart(chart_detail, use_container_width=True)
 
 with col_text_by_age:
-    st.markdown("""Analyzing demographics by age and gender reveals that older age does not equate to higher income for either gender. 
-            Let's explore additional demographic factors as follows.""")
+    st.markdown("""
+                <div style="margin-top: 2rem; font-size: 16px; line-height: 1.6;">
+                Analyzing demographics by age and gender reveals that older age does not equate to higher income for either gender. 
+                <br></br>
+                Although the trendline tends to increase with age, it cannot be concluded that the high income is due to age as well.
+                </div>
+                """,unsafe_allow_html=True)
+    
+chart, text = st.columns([1,2.5])
 
-st.altair_chart(chart2, use_container_width=True)
+with chart:
+    st.markdown("""The data clearly reveals that income is heavily 
+                influenced by an individual's skill set. The scatter plot highlights a compelling trend: those who possess skills—whether they are highly qualified employees or self-employed professionals—consistently achieve higher incomes, irrespective of their age. This underscores the vital importance of investing in one's skills to unlock greater financial potential.""")
 
+with text:
+    st.altair_chart(chart2, use_container_width=True)
 st.divider()
 
 
